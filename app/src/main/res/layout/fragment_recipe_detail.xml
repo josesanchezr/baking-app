@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.bakingapp.RecipeDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/ingredients_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="@dimen/margen_estandar"
+            android:layout_marginRight="@dimen/margen_estandar"
+            android:gravity="center"
+            android:text="@string/ingredients_text" />
+
+        <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/recipe_steps_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margen_estandar"
+            android:layout_marginRight="@dimen/margen_estandar"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/item_recipe_step">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+</FrameLayout>
