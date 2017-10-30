@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Baking App</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ingredients_text">Recipe Ingredients</string>
+    <string name="poster_movie">Poster movie</string>
+    <string name="recipte_text">Recipe</string>
+    <string name="content_text">Content of recipe step</string>
 </resources>
