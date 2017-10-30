@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.bakingapp.RecipeStepDetailFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50">
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/video_step"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:scaleType="centerCrop">
+
+        </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_step"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margen_estandar"
+        android:paddingEnd="@dimen/margen_estandar"
+        android:paddingLeft="@dimen/margen_izquierda_contenido"
+        android:paddingRight="@dimen/margen_estandar"
+        android:paddingStart="@dimen/margen_izquierda_contenido"
+        android:paddingTop="@dimen/margen_estandar">
+
+        <TextView
+            android:id="@+id/short_description_step"
+            style="@style/TextAppearance.AppCompat.Title.Inverse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textIsSelectable="true" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/margen_estandar"
+        android:paddingTop="@dimen/margen_estandar"
+        android:scrollbarStyle="outsideOverlay">
+
+        <TextView
+            android:id="@+id/description_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margen_estandar"
+            android:paddingLeft="@dimen/margen_izquierda_contenido"
+            android:paddingRight="@dimen/margen_estandar"
+            android:paddingStart="@dimen/margen_izquierda_contenido"
+            android:text="@string/content_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    </ScrollView>
+
+</LinearLayout>

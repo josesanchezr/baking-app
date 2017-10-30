@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/altura_item"
+    android:layout_marginBottom="@dimen/margen_estandar"
+    android:layout_marginTop="@dimen/margen_estandar"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/short_description_recipe_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/thumbnail_recipe_step"
+        android:text="Title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+    <TextView
+        android:id="@+id/description_recipe_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/line_recipe"
+        android:layout_alignLeft="@+id/short_description_recipe_step"
+        android:layout_alignRight="@+id/short_description_recipe_step"
+        android:layout_below="@+id/short_description_recipe_step"
+        android:text="Resumen" />
+
+    <ImageView
+        android:id="@+id/thumbnail_recipe_step"
+        android:layout_width="@dimen/ancho_miniatura"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margen_estandar"
+        android:paddingBottom="4dp" />
+
+    <ImageView
+        android:id="@+id/line_recipe"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/description_recipe_step"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/description_recipe_step"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryLight" />
+
+</RelativeLayout>
