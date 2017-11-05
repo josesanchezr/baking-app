@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.android.bakingapp.adapter.RecipeStepsAdapter;
 import com.example.android.bakingapp.data.Recipe;
+import com.example.android.bakingapp.widget.UpdateBakingService;
 
 public class RecipeDetailFragment extends Fragment implements RecipeStepsAdapter.OnItemClickListener {
 
@@ -40,6 +41,8 @@ public class RecipeDetailFragment extends Fragment implements RecipeStepsAdapter
             RecyclerView recipeStepRecyclerView = rooView.findViewById(R.id.recipe_steps_recyclerview);
             RecipeStepsAdapter adapter = new RecipeStepsAdapter(recipe.steps, this);
             recipeStepRecyclerView.setAdapter(adapter);
+
+            UpdateBakingService.updateBakingWidget(getContext(), recipe.ingredients, recipe.name);
         }
 
         return rooView;
