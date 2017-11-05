@@ -1,6 +1,7 @@
 package com.example.android.bakingapp;
 
 import android.content.Intent;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,11 +29,15 @@ public class MainActivity extends AppCompatActivity {
     private RecipeDetailController recipeDetailController;
     private List<Recipe> recipeList;
 
+    CountingIdlingResource espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        espressoTestIdlingResource.increment();
 
         recipeDetailController = new RecipeDetailController();
         if (savedInstanceState == null) {
@@ -60,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("RECIPE", "Cantidad de recetas " + String.valueOf(recipeList.size()));
                 RecipesAdapter adapter = new RecipesAdapter(getApplicationContext(), recipeList);
                 recipesGridView.setAdapter(adapter);
+
+                espressoTestIdlingResource.decrement();
             } else {
                 Log.d("RECIPE", "Ha ocurrido un error: " + response.message());
             }
@@ -70,4 +77,8 @@ public class MainActivity extends AppCompatActivity {
             t.printStackTrace();
         }
     };
+
+    public CountingIdlingResource getEspressoIdlingResourceForMainActivity() {
+        return espressoTestIdlingResource;
+    }
 }
