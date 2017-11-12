@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.example.android.bakingapp.adapter.RecipeIngredientsAdapter;
 import com.example.android.bakingapp.adapter.RecipeStepsAdapter;
 import com.example.android.bakingapp.data.Recipe;
 import com.example.android.bakingapp.widget.UpdateBakingService;
@@ -38,6 +40,10 @@ public class RecipeDetailFragment extends Fragment implements RecipeStepsAdapter
         View rooView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
         if (recipe != null) {
+            ListView recipeIngredientsListView = rooView.findViewById(R.id.recipe_ingredients_listview);
+            RecipeIngredientsAdapter recipeIngredientsAdapter = new RecipeIngredientsAdapter(getContext(), recipe.ingredients);
+            recipeIngredientsListView.setAdapter(recipeIngredientsAdapter);
+
             RecyclerView recipeStepRecyclerView = rooView.findViewById(R.id.recipe_steps_recyclerview);
             RecipeStepsAdapter adapter = new RecipeStepsAdapter(recipe.steps, this);
             recipeStepRecyclerView.setAdapter(adapter);
