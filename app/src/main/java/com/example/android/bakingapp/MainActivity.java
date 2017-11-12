@@ -59,24 +59,24 @@ public class MainActivity extends AppCompatActivity {
             if (savedInstanceState == null) {
                 recipeDetailController.recipeDetailApi.getRecipes().enqueue(recipesCallback);
             }
-
-            recipesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Recipe recipe = (Recipe) adapterView.getItemAtPosition(position);
-
-                    Intent intent = new Intent(view.getContext(), RecipeDetailActivity.class);
-                    intent.putExtra(RecipeDetailActivity.RECIPE_ACTIVITY, recipe);
-
-                    startActivity(intent);
-                }
-            });
         } else {
             recipeList = savedInstanceState.getParcelableArrayList(RECIPE_LIST);
             RecipesAdapter adapter = new RecipesAdapter(getApplicationContext(), recipeList);
             recipesGridView.setAdapter(adapter);
             recipesGridView.deferNotifyDataSetChanged();
         }
+
+        recipesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Recipe recipe = (Recipe) adapterView.getItemAtPosition(position);
+
+                Intent intent = new Intent(view.getContext(), RecipeDetailActivity.class);
+                intent.putExtra(RecipeDetailActivity.RECIPE_ACTIVITY, recipe);
+
+                startActivity(intent);
+            }
+        });
     }
 
     private final Callback<List<Recipe>> recipesCallback = new Callback<List<Recipe>>() {
