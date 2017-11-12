@@ -17,6 +17,8 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_recipe_step)
     Toolbar toolbar_recipe_step;
 
+    RecipeStepDetailFragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +38,22 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
             Recipe.Step step = getIntent().getParcelableExtra(RECIPE_STEP_ACTIVITY);
             arguments.putParcelable(RecipeStepDetailFragment.RECIPE_STEP_FRAGMENT, step);
 
-            RecipeStepDetailFragment fragment = new RecipeStepDetailFragment();
+            fragment = new RecipeStepDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.recipe_step_fragment, fragment)
                     .commit();
+        } else {
+            fragment = (RecipeStepDetailFragment) getSupportFragmentManager().getFragment(savedInstanceState, "recipeStepDetailFragment");
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_step_fragment, fragment)
+                    .commit();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        getSupportFragmentManager().putFragment(outState, "recipeStepDetailFragment", fragment);
+        super.onSaveInstanceState(outState);
     }
 }

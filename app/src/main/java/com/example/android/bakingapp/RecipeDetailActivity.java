@@ -12,13 +12,24 @@ public class RecipeDetailActivity extends AppCompatActivity
         implements RecipeDetailFragment.HearRecipeDetailFragment {
 
     public static final String RECIPE_ACTIVITY = "recipe_activity";
+    public static final String RECIPE_STEP_ACTIVITY = "recipe_step_activity";
     private Recipe recipe;
+    private Recipe.Step step;
     private boolean twoPanels;
+
+    private static final String FRAGMENT_RECIPE_DETAIL = "fragmentRecipeDetail";
+    private static final String FRAGMENT_RECIPE_STEP_DETAIL = "fragmentRecipeStepDetail";
+    private RecipeDetailFragment fragmentRecipeDetail;
+    private RecipeStepDetailFragment fragmentRecipeStepDetail;
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(RECIPE_ACTIVITY, recipe);
+        outState.putParcelable(RECIPE_STEP_ACTIVITY, step);
         Log.d("RECIPE-DETAIL", "Guardando recipe " + recipe.name);
+        Log.d("RECIPE-DETAIL", "Guardando recipe step" + step.shortDescription);
+        getSupportFragmentManager().putFragment(outState, FRAGMENT_RECIPE_DETAIL, fragmentRecipeDetail);
         super.onSaveInstanceState(outState);
     }
 
@@ -26,7 +37,9 @@ public class RecipeDetailActivity extends AppCompatActivity
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         recipe = (Recipe) savedInstanceState.getParcelable(RECIPE_ACTIVITY);
+        step = (Recipe.Step) savedInstanceState.getParcelable(RECIPE_STEP_ACTIVITY);
         Log.d("RECIPE-DETAIL", "Restaurando recipe " + recipe.name);
+        Log.d("RECIPE-DETAIL", "Restaurando recipe step" + step.shortDescription);
     }
 
     @Override
@@ -42,38 +55,53 @@ public class RecipeDetailActivity extends AppCompatActivity
 
             arguments.putParcelable(RecipeDetailFragment.RECIPE_FRAGMENT, recipe);
 
-            RecipeDetailFragment fragment = new RecipeDetailFragment();
-            fragment.setArguments(arguments);
+            fragmentRecipeDetail = new RecipeDetailFragment();
+            fragmentRecipeDetail.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.recipe_fragment, fragment)
+                    .add(R.id.recipe_fragment, fragmentRecipeDetail)
                     .commit();
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            Log.d("RECIPE-DETAIL", recipe.name);
-            getSupportActionBar().setTitle(recipe.name);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            step = recipe.steps.get(0);
 
-            if (findViewById(R.id.recipe_step_fragment) != null) {
-                twoPanels = true;
-                loadRecipeStepDetail(recipe.steps.get(0));
-            }
+        } else {
+            recipe = (Recipe) savedInstanceState.getParcelable(RECIPE_ACTIVITY);
+            step = (Recipe.Step) savedInstanceState.getParcelable(RECIPE_STEP_ACTIVITY);
+            Log.d("RECIPE-DETAIL", "Restaurando recipe " + recipe.name);
+            Log.d("RECIPE-DETAIL", "Restaurando recipe step" + step.shortDescription);
+
+            fragmentRecipeDetail = (RecipeDetailFragment) getSupportFragmentManager()
+                    .getFragment(savedInstanceState, FRAGMENT_RECIPE_DETAIL);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_fragment, fragmentRecipeDetail)
+                    .commit();
         }
+
+        if (findViewById(R.id.recipe_step_fragment) != null) {
+            twoPanels = true;
+            loadRecipeStepDetail(step);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Log.d("RECIPE-DETAIL", recipe.name);
+        getSupportActionBar().setTitle(recipe.name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void loadRecipeStepDetail(Recipe.Step step) {
         Bundle argumentsDetail = new Bundle();
         argumentsDetail.putParcelable(RecipeStepDetailFragment.RECIPE_STEP_FRAGMENT, step);
 
-        RecipeStepDetailFragment fragmentStepDetail = new RecipeStepDetailFragment();
-        fragmentStepDetail.setArguments(argumentsDetail);
+        fragmentRecipeStepDetail = new RecipeStepDetailFragment();
+        fragmentRecipeStepDetail.setArguments(argumentsDetail);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_step_fragment, fragmentStepDetail)
+                .replace(R.id.recipe_step_fragment, fragmentRecipeStepDetail)
                 .commit();
     }
 
     @Override
     public void onSelectRecipeStep(Recipe.Step step) {
+        this.step = step;
         if (twoPanels) {
             loadRecipeStepDetail(step);
         } else {
