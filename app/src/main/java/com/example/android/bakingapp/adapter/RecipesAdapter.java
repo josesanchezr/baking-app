@@ -2,6 +2,7 @@ package com.example.android.bakingapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class RecipesAdapter extends ArrayAdapter<Recipe> {
         if (recipe != null) {
             ImageView iconView = convertView.findViewById(R.id.item_image);
             String imagen = recipe.image;
-            if (recipe.image.isEmpty()) {
+            if (TextUtils.isEmpty(recipe.image)) {
                 imagen = "http://images.familycircle.mdpcdn.com/sites/familycircle.com/files/styles/slide/public/slide/R146601.jpg";
             }
             Picasso.with(getContext())

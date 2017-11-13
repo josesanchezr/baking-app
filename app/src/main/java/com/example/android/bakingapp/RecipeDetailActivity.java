@@ -76,7 +76,8 @@ public class RecipeDetailActivity extends AppCompatActivity
                     .commit();
         }
 
-        if (findViewById(R.id.recipe_step_fragment) != null) {
+        boolean isTable = getResources().getBoolean(R.bool.esTablet);
+        if (isTable) {
             twoPanels = true;
             loadRecipeStepDetail(step);
         }
