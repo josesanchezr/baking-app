@@ -42,7 +42,9 @@ public class MainActivityTest {
     public void loadGridViewWithRecipes() {
         onData(anything()).inAdapterView(withId(R.id.recipes_grid)).atPosition(0).perform(click());
 
-        onView(withId(R.id.ingredients_button)).check(matches(withText("Recipe Ingredients")));
+        onData(anything()).inAdapterView(withId(R.id.recipe_ingredients_listview))
+                .atPosition(0).onChildView(withId(R.id.recipe_ingredient_name))
+                .check(matches(withText("Graham Cracker crumbs")));
     }
 
     @After
